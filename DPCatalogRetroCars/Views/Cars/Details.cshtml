@@ -1,0 +1,67 @@
+﻿@model DPCatalogRetroCars.Models.CarStory
+@{
+    ViewData["Title"] = "Детайли";
+}
+
+<h1>@Model.Brand @Model.Model (@Model.Year)</h1>
+<p><strong>Среден рейтинг:</strong> @(((double)ViewBag.AverageRating).ToString("0.00")) / 5</p>
+<p><strong>Статус история:</strong> @Model.StoryStatus | <strong>Статус реставрация:</strong> @Model.RestorationStatus</p>
+
+@if (!string.IsNullOrWhiteSpace(Model.ImageUrl))
+{
+    <img src="@Model.ImageUrl" alt="@Model.Brand @Model.Model" class="img-fluid mb-3" style="max-height:360px;" />
+}
+
+<div class="card mb-3"><div class="card-body"><h5>Състояние при придобиване</h5><p>@Model.AcquisitionState</p></div></div>
+<div class="card mb-3"><div class="card-body"><h5>История на реставрацията</h5><p>@Model.RestorationHistory</p></div></div>
+<div class="card mb-3"><div class="card-body"><h5>Краен резултат</h5><p>@Model.FinalResult</p></div></div>
+
+@if (!string.IsNullOrWhiteSpace(Model.VideoUrl))
+{
+    <p><a href="@Model.VideoUrl" target="_blank">Видео</a></p>
+}
+@if (!string.IsNullOrWhiteSpace(Model.Location))
+{
+    <p><strong>Локация:</strong> @Model.Location</p>
+}
+@if (!string.IsNullOrWhiteSpace(Model.QrCodeUrl))
+{
+    <p><a href="@Model.QrCodeUrl" target="_blank">QR страница</a></p>
+}
+
+@if (User.Identity?.IsAuthenticated == true)
+{
+    <form asp-action="Rate" method="post" class="mb-2">
+        <input type="hidden" name="carId" value="@Model.Id" />
+        <div class="input-group" style="max-width:240px;">
+            <select class="form-select" name="value">
+                @for (var i = 1; i <= 5; i++)
+                {
+                    <option value="@i">@i</option>
+                }
+            </select>
+            <button class="btn btn-outline-success">Оцени</button>
+        </div>
+    </form>
+
+    <form asp-action="ToggleFavorite" method="post" class="mb-3">
+        <input type="hidden" name="carId" value="@Model.Id" />
+        <button class="btn btn-outline-warning">@(ViewBag.IsFavorite ? "Премахни от любими" : "Добави в любими")</button>
+    </form>
+
+    <form asp-action="AddComment" method="post">
+        <input type="hidden" name="carId" value="@Model.Id" />
+        <textarea class="form-control mb-2" name="content" rows="3" placeholder="Коментар..."></textarea>
+        <button class="btn btn-primary">Публикувай коментар</button>
+    </form>
+}
+
+<hr />
+<h3>Коментари</h3>
+@foreach (var c in Model.Comments.OrderByDescending(c => c.CreatedOnUtc))
+{
+    <div class="border rounded p-2 mb-2">
+        <small>@c.CreatedOnUtc.ToString("yyyy-MM-dd HH:mm")</small>
+        <p class="mb-0">@c.Content</p>
+    </div>
+}

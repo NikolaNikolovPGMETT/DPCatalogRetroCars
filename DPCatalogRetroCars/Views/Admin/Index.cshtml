@@ -1,0 +1,26 @@
+﻿@model IEnumerable<DPCatalogRetroCars.Models.CarStory>
+@{
+    ViewData["Title"] = "Администратор";
+}
+<h1>Администраторско меню</h1>
+<p>Чакащи истории: <strong>@ViewBag.PendingStories</strong> | Скрити коментари: <strong>@ViewBag.HiddenComments</strong></p>
+<p><a asp-action="Comments" class="btn btn-outline-secondary">Модерация на коментари</a></p>
+<table class="table table-striped">
+    <thead><tr><th>Автомобил</th><th>Статус</th><th>Действия</th></tr></thead>
+    <tbody>
+        @foreach (var s in Model)
+        {
+            <tr>
+                <td>@s.Brand @s.Model</td>
+                <td>@s.StoryStatus</td>
+                <td>
+                    <form asp-action="ChangeStoryStatus" method="post" class="d-flex gap-2">
+                        <input type="hidden" name="id" value="@s.Id" />
+                        <select name="status" class="form-select form-select-sm" asp-items="Html.GetEnumSelectList<DPCatalogRetroCars.Models.StoryStatus>()"></select>
+                        <button class="btn btn-sm btn-primary">Обнови</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

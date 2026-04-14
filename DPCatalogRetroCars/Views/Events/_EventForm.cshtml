@@ -1,0 +1,8 @@
+﻿@model DPCatalogRetroCars.Models.RetroEvent
+<div class="row g-3">
+    <div class="col-12"><label asp-for="Title" class="form-label"></label><input asp-for="Title" class="form-control" /></div>
+    <div class="col-12"><label asp-for="Description" class="form-label"></label><textarea asp-for="Description" class="form-control" rows="4"></textarea></div>
+    <div class="col-md-6"><label asp-for="Location" class="form-label"></label><input asp-for="Location" class="form-control" /></div>
+    <div class="col-md-3"><label asp-for="StartsOnUtc" class="form-label"></label><input asp-for="StartsOnUtc" class="form-control" type="datetime-local" /></div>
+    <div class="col-md-3"><label asp-for="EndsOnUtc" class="form-label"></label><input asp-for="EndsOnUtc" class="form-control" type="datetime-local" /></div>
+</div>

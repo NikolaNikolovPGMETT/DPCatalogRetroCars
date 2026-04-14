@@ -1,0 +1,15 @@
+﻿@model DPCatalogRetroCars.Models.CarStory
+@{
+    ViewData["Title"] = "Редакция";
+}
+
+<h1>Редакция на история</h1>
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <partial name="_CarForm" model="Model" />
+    <div class="mt-3"><button class="btn btn-success" type="submit">Запази</button></div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

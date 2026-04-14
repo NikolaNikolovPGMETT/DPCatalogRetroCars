@@ -1,0 +1,19 @@
+﻿@model IEnumerable<DPCatalogRetroCars.Models.CarStory>
+@{
+    ViewData["Title"] = "Моите истории";
+}
+<h1>Моите истории</h1>
+<p><a asp-action="Create" class="btn btn-primary">Нова история</a></p>
+<table class="table">
+    <thead><tr><th>Автомобил</th><th>Статус</th><th></th></tr></thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Brand @item.Model</td>
+                <td>@item.StoryStatus / @item.RestorationStatus</td>
+                <td><a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Редакция</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,23 @@
+﻿@model IEnumerable<DPCatalogRetroCars.Models.Comment>
+@{
+    ViewData["Title"] = "Коментари";
+}
+<h1>Модерация на коментари</h1>
+<table class="table">
+    <thead><tr><th>Коментар</th><th>Скрит</th><th></th></tr></thead>
+    <tbody>
+        @foreach (var c in Model)
+        {
+            <tr>
+                <td>@c.Content</td>
+                <td>@c.IsHidden</td>
+                <td>
+                    <form asp-action="ToggleCommentVisibility" method="post">
+                        <input type="hidden" name="id" value="@c.Id" />
+                        <button class="btn btn-sm btn-warning">Смени</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

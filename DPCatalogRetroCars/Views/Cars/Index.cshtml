@@ -1,0 +1,30 @@
+﻿@model IEnumerable<DPCatalogRetroCars.Models.CarStory>
+@{
+    ViewData["Title"] = "Каталог";
+}
+
+<h1>Каталог с ретро автомобили</h1>
+<form method="get" class="row g-2 mb-3">
+    <div class="col-md-4"><input name="brand" value="@ViewBag.Brand" class="form-control" placeholder="Филтър по марка" /></div>
+    <div class="col-md-4">
+        <select name="restorationStatus" class="form-select" asp-items="Html.GetEnumSelectList<DPCatalogRetroCars.Models.RestorationStatus>()">
+            <option value="">Всички статуси</option>
+        </select>
+    </div>
+    <div class="col-md-2"><button class="btn btn-outline-primary" type="submit">Филтрирай</button></div>
+</form>
+
+<table class="table table-striped">
+    <thead><tr><th>Автомобил</th><th>Година</th><th>Статус реставрация</th><th></th></tr></thead>
+    <tbody>
+        @foreach (var car in Model)
+        {
+            <tr>
+                <td>@car.Brand @car.Model</td>
+                <td>@car.Year</td>
+                <td>@car.RestorationStatus</td>
+                <td><a asp-action="Details" asp-route-id="@car.Id" class="btn btn-sm btn-primary">Детайли</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

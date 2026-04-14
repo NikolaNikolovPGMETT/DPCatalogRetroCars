@@ -1,0 +1,25 @@
+﻿@model IEnumerable<DPCatalogRetroCars.Models.RetroEvent>
+@{
+    ViewData["Title"] = "Предстоящи събития";
+}
+<h1>Предстоящи събития</h1>
+@if (User.IsInRole("Admin"))
+{
+    <p><a asp-action="Create" class="btn btn-primary">Ново събитие</a></p>
+}
+<div class="row">
+    @foreach (var ev in Model)
+    {
+        <div class="col-md-6 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5>@ev.Title</h5>
+                    <p>@ev.Description</p>
+                    <p><strong>@ev.Location</strong></p>
+                    <p>@ev.StartsOnUtc.ToString("yyyy-MM-dd HH:mm") - @ev.EndsOnUtc.ToString("yyyy-MM-dd HH:mm") UTC</p>
+                    <a asp-action="Details" asp-route-id="@ev.Id" class="btn btn-outline-primary">Детайли</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

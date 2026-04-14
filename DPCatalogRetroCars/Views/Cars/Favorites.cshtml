@@ -1,0 +1,14 @@
+﻿@model IEnumerable<DPCatalogRetroCars.Models.CarStory>
+@{
+    ViewData["Title"] = "Любими";
+}
+<h1>Любими автомобили</h1>
+<ul class="list-group">
+    @foreach (var car in Model)
+    {
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span>@car.Brand @car.Model (@car.Year)</span>
+            <a asp-action="Details" asp-route-id="@car.Id" class="btn btn-sm btn-primary">Отвори</a>
+        </li>
+    }
+</ul>

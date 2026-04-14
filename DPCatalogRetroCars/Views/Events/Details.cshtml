@@ -1,0 +1,22 @@
+﻿@model DPCatalogRetroCars.Models.RetroEvent
+@{
+    ViewData["Title"] = "Детайли за събитие";
+}
+<h1>@Model.Title</h1>
+<p>@Model.Description</p>
+<p><strong>Локация:</strong> @Model.Location</p>
+<p><strong>Период:</strong> @Model.StartsOnUtc.ToString("yyyy-MM-dd HH:mm") - @Model.EndsOnUtc.ToString("yyyy-MM-dd HH:mm") UTC</p>
+<p><strong>Записани участници:</strong> @Model.Registrations.Count</p>
+
+@if (User.Identity?.IsAuthenticated == true && !(bool)ViewBag.IsRegistered)
+{
+    <form asp-action="Register" method="post">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <button class="btn btn-success">Запиши се</button>
+    </form>
+}
+
+@if (User.IsInRole("Admin"))
+{
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-secondary mt-2">Редакция</a>
+}

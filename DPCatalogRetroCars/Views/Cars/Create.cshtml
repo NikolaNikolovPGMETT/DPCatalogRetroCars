@@ -1,0 +1,16 @@
+﻿@model DPCatalogRetroCars.Models.CarStory
+@{
+    ViewData["Title"] = "Добави автомобил";
+}
+
+<h1>Добавяне на история за автомобил</h1>
+<form asp-action="Create" method="post">
+    <partial name="_CarForm" model="Model" />
+    <div class="mt-3">
+        <button class="btn btn-primary" type="submit">Публикувай (чака одобрение)</button>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
