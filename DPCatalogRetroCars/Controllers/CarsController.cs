@@ -72,12 +72,14 @@ public class CarsController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(CarStory story)
     {
+        story.OwnerId = _userManager.GetUserId(User)!;
+        ModelState.Remove(nameof(CarStory.OwnerId));
         if (!ModelState.IsValid)
         {
             return View(story);
         }
 
-        story.OwnerId = _userManager.GetUserId(User)!;
+        
         story.StoryStatus = StoryStatus.Pending;
         _db.CarStories.Add(story);
         await _db.SaveChangesAsync();
@@ -107,6 +109,7 @@ public class CarsController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id, CarStory updated)
     {
+        ModelState.Remove(nameof(CarStory.OwnerId));
         if (id != updated.Id)
         {
             return BadRequest();

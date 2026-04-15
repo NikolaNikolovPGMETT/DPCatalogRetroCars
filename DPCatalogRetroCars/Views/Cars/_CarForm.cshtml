@@ -20,8 +20,16 @@
         <input asp-for="Year" class="form-control" />
         <span asp-validation-for="Year" class="text-danger"></span>
     </div>
-    <div class="col-md-3"><label asp-for="Engine" class="form-label"></label><input asp-for="Engine" class="form-control" /></div>
-    <div class="col-md-3"><label asp-for="Color" class="form-label"></label><input asp-for="Color" class="form-control" /></div>
+    <div class="col-md-3">
+        <label asp-for="Engine" class="form-label"></label>
+        <input asp-for="Engine" class="form-control" />
+        <span asp-validation-for="Engine" class="text-danger"></span>
+    </div>
+    <div class="col-md-3">
+        <label asp-for="Color" class="form-label"></label>
+        <input asp-for="Color" class="form-control" />
+        <span asp-validation-for="Color" class="text-danger"></span>
+    </div>
     <div class="col-md-3">
         <label asp-for="RestorationStatus" class="form-label"></label>
         <select asp-for="RestorationStatus" class="form-select" asp-items="Html.GetEnumSelectList<DPCatalogRetroCars.Models.RestorationStatus>()"></select>
@@ -35,12 +43,39 @@
         </div>
     }
 
-    <div class="col-12"><label asp-for="AcquisitionState" class="form-label"></label><textarea asp-for="AcquisitionState" class="form-control" rows="3"></textarea></div>
-    <div class="col-12"><label asp-for="RestorationHistory" class="form-label"></label><textarea asp-for="RestorationHistory" class="form-control" rows="5"></textarea></div>
-    <div class="col-12"><label asp-for="FinalResult" class="form-label"></label><textarea asp-for="FinalResult" class="form-control" rows="3"></textarea></div>
-
-    <div class="col-md-4"><label asp-for="ImageUrl" class="form-label"></label><input asp-for="ImageUrl" class="form-control" /></div>
-    <div class="col-md-4"><label asp-for="VideoUrl" class="form-label"></label><input asp-for="VideoUrl" class="form-control" /></div>
-    <div class="col-md-4"><label asp-for="QrCodeUrl" class="form-label"></label><input asp-for="QrCodeUrl" class="form-control" /></div>
-    <div class="col-md-6"><label asp-for="Location" class="form-label"></label><input asp-for="Location" class="form-control" /></div>
+    <div class="col-12">
+        <label asp-for="AcquisitionState" class="form-label"></label>
+        <textarea asp-for="AcquisitionState" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="AcquisitionState" class="text-danger"></span>
+    </div>
+    <div class="col-12">
+        <label asp-for="RestorationHistory" class="form-label"></label>
+        <textarea asp-for="RestorationHistory" class="form-control" rows="5"></textarea>
+        <span asp-validation-for="RestorationHistory" class="text-danger"></span>
+    </div>
+    <div class="col-12">
+        <label asp-for="FinalResult" class="form-label"></label>
+        <textarea asp-for="FinalResult" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="FinalResult" class="text-danger"></span>
+    </div>
+    <div class="col-md-4">
+        <label asp-for="ImageUrl" class="form-label"></label>
+        <input asp-for="ImageUrl" class="form-control" />
+        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+    </div>
+    <div class="col-md-4">
+        <label asp-for="VideoUrl" class="form-label"></label>
+        <input asp-for="VideoUrl" class="form-control" />
+        <span asp-validation-for="VideoUrl" class="text-danger"></span>
+    </div>
+    <div class="col-md-4">
+        <label asp-for="QrCodeUrl" class="form-label"></label>
+        <input asp-for="QrCodeUrl" class="form-control" />
+        <span asp-validation-for="QrCodeUrl" class="text-danger"></span>
+    </div>
+    <div class="col-md-6">
+        <label asp-for="Location" class="form-label"></label>
+        <input asp-for="Location" class="form-control" />
+        <span asp-validation-for="Location" class="text-danger"></span>
+    </div>
 </div>
