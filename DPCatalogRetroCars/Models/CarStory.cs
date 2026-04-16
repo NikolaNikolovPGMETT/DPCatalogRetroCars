@@ -7,22 +7,29 @@ public class CarStory
     public int Id { get; set; }
 
     [Required, StringLength(100)]
+    
     public string Brand { get; set; } = string.Empty;
 
     [Required, StringLength(100)]
+    
     public string Model { get; set; } = string.Empty;
 
     [StringLength(100)]
+    
     public string? Generation { get; set; }
 
     [Range(1886, 2100)]
+    
     public int Year { get; set; }
 
     [StringLength(100)]
+   
     public string? Engine { get; set; }
 
     [StringLength(100)]
+    
     public string? Color { get; set; }
+    
 
     [Display(Name = "Състояние при придобиване")]
     [Required, StringLength(2000)]
@@ -48,8 +55,10 @@ public class CarStory
     [StringLength(200)]
     public string? Location { get; set; }
 
+    
     public StoryStatus StoryStatus { get; set; } = StoryStatus.Pending;
 
+    
     public RestorationStatus RestorationStatus { get; set; } = RestorationStatus.Current;
 
     [Display(Name = "QR код URL")]

@@ -1,45 +1,61 @@
 ﻿@model DPCatalogRetroCars.Models.CarStory
+@using Microsoft.AspNetCore.Mvc.Rendering
 
+@{
+    var restorationStatusItems = new List<SelectListItem>
+    {
+        new() { Value = DPCatalogRetroCars.Models.RestorationStatus.Current.ToString(), Text = "Текуща" },
+        new() { Value = DPCatalogRetroCars.Models.RestorationStatus.Future.ToString(), Text = "Планирана" },
+        new() { Value = DPCatalogRetroCars.Models.RestorationStatus.Completed.ToString(), Text = "Завършена" }
+    };
+
+    var storyStatusItems = new List<SelectListItem>
+    {
+        new() { Value = DPCatalogRetroCars.Models.StoryStatus.Pending.ToString(), Text = "Чака одобрение" },
+        new() { Value = DPCatalogRetroCars.Models.StoryStatus.Approved.ToString(), Text = "Одобрена" },
+        new() { Value = DPCatalogRetroCars.Models.StoryStatus.Removed.ToString(), Text = "Премахната" }
+    };
+}
 <div class="row g-3">
     <div class="col-md-4">
-        <label asp-for="Brand" class="form-label"></label>
+        <label asp-for="Brand" class="form-label">Марка</label>
         <input asp-for="Brand" class="form-control" />
         <span asp-validation-for="Brand" class="text-danger"></span>
     </div>
     <div class="col-md-4">
-        <label asp-for="Model" class="form-label"></label>
+        <label asp-for="Model" class="form-label">Модел</label>
         <input asp-for="Model" class="form-control" />
         <span asp-validation-for="Model" class="text-danger"></span>
     </div>
     <div class="col-md-4">
-        <label asp-for="Generation" class="form-label"></label>
+        <label asp-for="Generation" class="form-label">Поколение</label>
         <input asp-for="Generation" class="form-control" />
     </div>
     <div class="col-md-3">
-        <label asp-for="Year" class="form-label"></label>
+        <label asp-for="Year" class="form-label">Година</label>
         <input asp-for="Year" class="form-control" />
         <span asp-validation-for="Year" class="text-danger"></span>
     </div>
     <div class="col-md-3">
-        <label asp-for="Engine" class="form-label"></label>
+        <label asp-for="Engine" class="form-label">Двигател</label>
         <input asp-for="Engine" class="form-control" />
         <span asp-validation-for="Engine" class="text-danger"></span>
     </div>
     <div class="col-md-3">
-        <label asp-for="Color" class="form-label"></label>
+        <label asp-for="Color" class="form-label">Цвят</label>
         <input asp-for="Color" class="form-control" />
         <span asp-validation-for="Color" class="text-danger"></span>
     </div>
     <div class="col-md-3">
-        <label asp-for="RestorationStatus" class="form-label"></label>
-        <select asp-for="RestorationStatus" class="form-select" asp-items="Html.GetEnumSelectList<DPCatalogRetroCars.Models.RestorationStatus>()"></select>
+        <label asp-for="RestorationStatus" class="form-label">Статус на реставрацията</label>
+        <select asp-for="RestorationStatus" class="form-select" asp-items="restorationStatusItems"></select>
     </div>
 
     @if (User.IsInRole("Admin"))
     {
         <div class="col-md-3">
-            <label asp-for="StoryStatus" class="form-label"></label>
-            <select asp-for="StoryStatus" class="form-select" asp-items="Html.GetEnumSelectList<DPCatalogRetroCars.Models.StoryStatus>()"></select>
+            <label asp-for="StoryStatus" class="form-label">Статус на историята</label>
+            <select asp-for="StoryStatus" class="form-select" asp-items="storyStatusItems"></select>
         </div>
     }
 

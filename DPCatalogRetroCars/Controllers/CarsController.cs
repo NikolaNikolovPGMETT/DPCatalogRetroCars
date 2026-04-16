@@ -37,7 +37,15 @@ public class CarsController : Controller
 
         ViewBag.Brand = brand;
         ViewBag.RestorationStatus = restorationStatus;
-        return View(await query.OrderByDescending(c => c.CreatedOnUtc).ToListAsync());
+        var stories = await query.OrderByDescending(c => c.CreatedOnUtc).ToListAsync();
+        var ownerIds = stories
+            .Select(c => c.OwnerId)
+            .Where(id => !string.IsNullOrWhiteSpace(id))
+            .Distinct()
+            .ToList();
+        ViewBag.OwnerNames = await GetUserNameMapAsync(ownerIds);
+
+        return View(stories);
     }
 
     [AllowAnonymous]
@@ -57,6 +65,13 @@ public class CarsController : Controller
         {
             return Forbid();
         }
+        var userIds = car.Comments
+            .Select(c => c.UserId)
+            .Append(car.OwnerId)
+            .Where(id => !string.IsNullOrWhiteSpace(id))
+            .Distinct()
+            .ToList();
+        ViewBag.UserNames = await GetUserNameMapAsync(userIds);
 
         ViewBag.AverageRating = car.Ratings.Any() ? car.Ratings.Average(r => r.Value) : 0;
         ViewBag.UserRating = await GetCurrentUserRatingAsync(id);
@@ -272,5 +287,23 @@ public class CarsController : Controller
 
         var userId = _userManager.GetUserId(User)!;
         return await _db.FavoriteCars.AnyAsync(f => f.CarStoryId == carId && f.UserId == userId);
+    }
+    private async Task<Dictionary<string, string>> GetUserNameMapAsync(IEnumerable<string> userIds)
+    {
+        var ids = userIds
+            .Where(id => !string.IsNullOrWhiteSpace(id))
+            .Distinct()
+            .ToList();
+
+        if (!ids.Any())
+        {
+            return new Dictionary<string, string>();
+        }
+
+        return await _userManager.Users
+            .Where(u => ids.Contains(u.Id))
+            .ToDictionaryAsync(
+                u => u.Id,
+                u => !string.IsNullOrWhiteSpace(u.UserName) ? u.UserName! : "Неизвестен потребител");
     }
 }

@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<DPCatalogRetroCars.Models.CarStory>
 @{
     ViewData["Title"] = "Каталог";
+    var ownerNames = ViewBag.OwnerNames as Dictionary<string, string> ?? new Dictionary<string, string>();
 }
 
 <h1>Каталог с ретро автомобили</h1>
@@ -15,17 +16,21 @@
 </form>
 
 <table class="table table-striped">
-    <thead><tr><th>Автомобил</th><th>Година</th><th>Статус реставрация</th><th></th></tr></thead>
+    <thead><tr><th>Автомобил</th><th>Година</th><th>Добавена от</th><th>Статус реставрация</th><th></th></tr></thead>
     <tbody>
         @foreach (var car in Model)
         {
+            var ownerName = ownerNames.TryGetValue(car.OwnerId, out var userName)
+            ? userName
+            : "Неизвестен потребител";
             <tr>
                 <td>@car.Brand @car.Model</td>
                 <td>@car.Year</td>
+                <td>@ownerName</td>
                 <td>@car.RestorationStatus</td>
                 <td><a asp-action="Details" asp-route-id="@car.Id" class="btn btn-sm btn-primary">Детайли</a></td>
             </tr>
         }
            
     </tbody>
-</table>
+<</table>

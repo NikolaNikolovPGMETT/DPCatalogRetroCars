@@ -1,9 +1,14 @@
 ﻿@model DPCatalogRetroCars.Models.CarStory
 @{
     ViewData["Title"] = "Детайли";
+    var userNames = ViewBag.UserNames as Dictionary<string, string> ?? new Dictionary<string, string>();
+    var ownerName = userNames.TryGetValue(Model.OwnerId, out var ownerUserName)
+        ? ownerUserName
+        : "Неизвестен потребител";
 }
 
 <h1>@Model.Brand @Model.Model (@Model.Year)</h1>
+<p><strong>Добавена от:</strong> @ownerName</p>
 <p><strong>Среден рейтинг:</strong> @(((double)ViewBag.AverageRating).ToString("0.00")) / 5</p>
 <p><strong>Статус история:</strong> @Model.StoryStatus | <strong>Статус реставрация:</strong> @Model.RestorationStatus</p>
 
@@ -60,7 +65,12 @@
 <h3>Коментари</h3>
 @foreach (var c in Model.Comments.OrderByDescending(c => c.CreatedOnUtc))
 {
+    var commentAuthor = userNames.TryGetValue(c.UserId, out var commentUserName)
+        ? commentUserName
+        : "Неизвестен потребител";
+
     <div class="border rounded p-2 mb-2">
+        <small><strong>@commentAuthor</strong></small><br />
         <small>@c.CreatedOnUtc.ToString("yyyy-MM-dd HH:mm")</small>
         <p class="mb-0">@c.Content</p>
     </div>
